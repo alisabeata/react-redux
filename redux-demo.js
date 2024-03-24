@@ -1,3 +1,6 @@
+// launch this file:
+// node redux-demo.js in the terminal
+
 const redux = require('redux')
 
 const initialState = { counter: 0 }
@@ -5,7 +8,15 @@ const initialState = { counter: 0 }
 // Reducers must be a pure function, without mutations
 // state also must have an initial value, state = initialState here
 const counterReducer = (state = initialState, action) => {
-  return { ...state, counter: state.counter + 1 }
+  if (action.type === 'INCREMENT') {
+    return { ...state, counter: state.counter + 1 }
+  }
+
+  if (action.type === 'DECREMENT') {
+    return { ...state, counter: state.counter - 1 }
+  }
+
+  return state
 }
 
 // create store
@@ -23,4 +34,5 @@ const counterSubscriber = () => {
 store.subscribe(counterSubscriber)
 
 // create actions
-store.dispatch({type: 'increment'})
+store.dispatch({ type: 'INCREMENT' })
+store.dispatch({ type: 'DECREMENT' })
