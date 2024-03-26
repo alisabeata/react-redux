@@ -2,7 +2,7 @@
 // connect should be used with class-based compenents
 import { useSelector, useDispatch } from 'react-redux'
 import classes from './Counter.module.css'
-import { counterActions } from '../store'
+import { counterActions } from '../store/counterSlice'
 
 const Counter = () => {
   // useSelector adds an automatic subsctription to the store

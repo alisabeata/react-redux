@@ -1,33 +1,21 @@
-// import { createStore } from 'redux'
-import { createSlice, configureStore } from '@reduxjs/toolkit'
+import { configureStore } from '@reduxjs/toolkit'
+import counterReducer from './counterSlice'
+import authReducer from './authSlice'
 
-const initialState = { counter: 0, isShown: true }
-
-// the slice approach
-// mutating state inside is allowed inside of slice reducer
-const counterSlice = createSlice({
-  name: 'counter',
-  initialState,
-  reducers: {
-    increment(state) {
-      // state.counter++ is allowed too
-      // redux toolkit is using immer
-      state.counter++
-    },
-    decrement(state) {
-      state.counter--
-    },
-    increase(state, action) {
-      state.counter = state.counter + action.payload.amount
-    },
-    toggle(state) {
-      state.isShown = !state.isShown
-    },
+const store = configureStore({
+  reducer: {
+    counter: counterReducer,
+    auth: authReducer,
   },
 })
 
-// the OLD WAY of creating reducer
-// (!) never mutate the state
+export default store
+
+// the OLD WAY to create the reducer
+// (!) never mutate the state here
+
+// import { createStore } from 'redux'
+
 // const counterReducer = (state = initialState, action) => {
 //   if (action.type === 'INCREMENT') {
 //     return { ...state, counter: state.counter + 1 }
@@ -49,15 +37,3 @@ const counterSlice = createSlice({
 // }
 
 // const store = createStore(counterReducer)
-
-const store = configureStore({
-  reducer: {
-    counter: counterSlice.reducer,
-  },
-})
-
-// redux toolkit automatically creates the action identifiers
-// and puts it in the actions property
-export const counterActions = counterSlice.actions
-
-export default store
